@@ -32,6 +32,7 @@
 !/work/realism-assets/outside.json
 !/work/realism-assets/sofa.json
 !/work/realism-assets/neutral-linen.json
+!/work/realism-assets/mannequins.json
 *.zip
 *.log
 __pycache__/

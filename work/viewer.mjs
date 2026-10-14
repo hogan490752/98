@@ -19,7 +19,7 @@ const status = document.getElementById('status');
 const areaHUD = document.getElementById('current-area');
 document.getElementById('panorama-open').addEventListener('click',()=>{
   const room=roomViews.some(p=>p.id===areaHUD.dataset.areaId)?areaHUD.dataset.areaId:'living';
-  location.href='apartment-panorama.html?v=people-16#'+window.shellViewer.interior.theme+'/'+room;
+  location.href='apartment-panorama.html?v=people3d-17#'+window.shellViewer.interior.theme+'/'+room;
 });
 const areaRows = document.getElementById('area-rows');
 displayedSpaces.forEach(space => {

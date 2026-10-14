@@ -13,6 +13,7 @@ import plantData from './interior-assets/potted_plant_01.json';
 import coffeeData from './interior-assets/modern_coffee_table_01.json';
 import sofaData from './realism-assets/sofa.json';
 import neutralLinen from './realism-assets/neutral-linen.json';
+import mannequinData from './realism-assets/mannequins.json';
 import {decodeBinary} from './realism.mjs';
 
 export const themes = {
@@ -85,7 +86,7 @@ export function createInterior({model,scene,ceiling}) {
   Object.entries(m).forEach(([name,material])=>material.name='装修_'+name);
   const rawWalls=new Map(model.solids.map(mesh=>[mesh,mesh.material]));
   const rawFloor=model.slab.material,rawCeiling=ceiling.material;
-  const pieces=[],doors=[],roomLights=[],bathFootprints=[],mirrors=[],bakedMaterials=new Map();
+  const pieces=[],doors=[],roomLights=[],bathFootprints=[],mirrors=[],people=[],toilets=new Map(),bakedMaterials=new Map();
   let raw=false,currentTheme='warm';
   const geometryCache=new Map();
   function mesh(geometry,material,parent,position=[0,0,0]) {
@@ -393,11 +394,14 @@ export function createInterior({model,scene,ceiling}) {
     footprint('vanity',vanityX,vanityZ,.46,.72);
     const toiletX=east?right-.345:left+.345,toiletZ=5.46;
     const toilet=new THREE.Group();toilet.position.set(toiletX,0,toiletZ);toilet.rotation.y=east?-Math.PI/2:Math.PI/2;set.add(toilet);
+    toilets.set(id+'-toilet',toilet);
     box(toilet,.35,.40,.15,m.white,0,.49,-.24,.035);
     box(toilet,.12,.008,.045,m.metal,0,.694,-.24,.003);
     sphere(toilet,.18,.13,.29,m.white,0,.33,.015);
     const seat=mesh(new THREE.TorusGeometry(.13,.017,10,32),m.white,toilet,[0,.48,.025]);seat.rotation.x=-Math.PI/2;seat.scale.y=1.45;
     sphere(toilet,.116,.012,.16,m.dark,0,.481,.025);
+    // 坐姿假人使用打开的马桶盖，座圈支撑高度保持0.497米。
+    box(toilet,.325,.46,.018,m.white,0,.735,-.14,.018);
     cylinder(toilet,.10,.26,m.white,0,.17,0,20);
     footprint('toilet',toiletX,toiletZ,.67,.38);
     const showerEnd=north+.96,wetWidth=right-northLeft;
@@ -526,7 +530,7 @@ export function createInterior({model,scene,ceiling}) {
     clone.traverse(item=>{if(item.isMesh){item.castShadow=true;item.receiveShadow=true;item.material=item.material.clone();}});return scaled;
   }
   const ready=Promise.all([loader.parseAsync(JSON.stringify(chairData),''),loader.parseAsync(JSON.stringify(armchairData),''),loader.parseAsync(JSON.stringify(plantData),''),
-    loader.parseAsync(decodeBinary(sofaData.glb),''),loader.parseAsync(JSON.stringify(coffeeData),'')]).then(([chair,armchair,plant,tailoredSofa,scannedCoffee])=>{
+    loader.parseAsync(decodeBinary(sofaData.glb),''),loader.parseAsync(JSON.stringify(coffeeData),''),loader.parseAsync(decodeBinary(mannequinData.glb),'')]).then(([chair,armchair,plant,tailoredSofa,scannedCoffee,mannequins])=>{
     pieces.filter(item=>item.userData.id.startsWith('dining-chair')).forEach(item=>{
       item.clear();item.add(fitImported(chair.scene,.46,.84,.49));
     });
@@ -543,9 +547,21 @@ export function createInterior({model,scene,ceiling}) {
     coffee.clear();coffee.add(fitImported(scannedCoffee.scene,1.10,.41,.66));
     box(coffee,.29,.025,.20,m.accent,-.15,.424,.02,.004);
     cylinder(coffee,.048,.060,m.white,.23,.44,-.04,24);
+    // 人体资产是米制实体，只继承家具根节点的刚性变换，不使用fitImported缩放。
+    for(const person of [...mannequins.scene.children]){
+      const anchor=person.userData.anchor_id;
+      const parent=anchor?pieces.find(item=>item.userData.id===anchor)||toilets.get(anchor):architecture;
+      if(!parent)throw new Error('假人支撑家具缺失：'+anchor);
+      parent.add(person);people.push(person);
+      person.traverse(item=>{if(item.isMesh){item.castShadow=true;item.receiveShadow=true;}});
+      if(person.userData.pose==='standing'){
+        group.updateMatrixWorld(true);const bounds=new THREE.Box3().setFromObject(person,true);
+        fixedFootprints.push({id:person.userData.mannequin_id,minX:bounds.min.x,maxX:bounds.max.x,minZ:bounds.min.z,maxZ:bounds.max.z});
+      }
+    }
   });
   setTheme('warm');setRaw(false);
-  return {group,architecture,furnishings,pieces,materials:m,doors,mirrors,ready,roomViews,setTheme,setRaw,colliders,update,
+  return {group,architecture,furnishings,pieces,people,materials:m,doors,mirrors,ready,roomViews,setTheme,setRaw,colliders,update,
     installBake(data,lightMap){
       for(const item of [...model.solids,model.slab,ceiling]){
         const entry=data[item===ceiling?'Ceiling_Interior':item.name];if(!entry)throw new Error('Missing baked geometry: '+item.name);
