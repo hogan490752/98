@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image
 import hashlib
 
-root=Path(__file__).resolve().parent/'panorama-render/v2'
+root=Path(__file__).resolve().parent/'panorama-render/v3'
 hashes={}
 for theme in ['warm','minimal','urban']:
     images=[p for p in (root/theme).glob('*.png') if not p.name.endswith('-preview.png')]

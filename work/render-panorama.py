@@ -94,8 +94,14 @@ if '--detailed' in sys.argv:
         upgrade_scene(json.loads((ROOT/'panorama-detail-layout.json').read_text(encoding='utf-8')))
         bpy.ops.wm.save_as_mainfile(filepath=str(base))
     else:bpy.ops.wm.open_mainfile(filepath=str(base))
+    if '--people' in sys.argv:
+        from mannequins import add_mannequins
+        people_base=OUT/'v3/people-base.blend';people_base.parent.mkdir(exist_ok=True)
+        if people_base.exists() and '--rebuild-people' not in sys.argv:bpy.ops.wm.open_mainfile(filepath=str(people_base))
+        else:
+            add_mannequins();bpy.ops.wm.save_as_mainfile(filepath=str(people_base))
     theme=sys.argv[sys.argv.index('--theme')+1] if '--theme' in sys.argv else 'warm'
-    apply_theme(theme);scene=bpy.context.scene;scene.render.threads=12;camera=scene.camera;OUT=OUT/'v2'/theme;OUT.mkdir(exist_ok=True)
+    apply_theme(theme);scene=bpy.context.scene;scene.render.threads=12;camera=scene.camera;OUT=OUT/('v3' if '--people' in sys.argv else 'v2')/theme;OUT.mkdir(exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'scene.blend'))
 elif '--resume' in sys.argv:
     bpy.ops.wm.open_mainfile(filepath=str(OUT/'furnished-panorama.blend'));scene=bpy.context.scene;camera=scene.camera

@@ -13,22 +13,21 @@ const web=process.argv.includes('--web');
 if(web&&preview)throw new Error('线上发布必须包含全部点位，不能使用预览模式');
 const webDir=path.join(dir,'../outputs/website');
 if(web)await fs.mkdir(webDir,{recursive:true});
+const renderDir=path.join(dir,'panorama-render/v3');
+// 本机渲染必须完整；Git检出没有缓存时，使用仓库中的全部已发布图片。
+const imageRoot=await fs.access(renderDir).then(()=>renderDir,()=>path.join(webDir,'panoramas'));
 const ready=[];
 for(const point of points){
   try{
     const images={};
     for(const theme of Object.keys(themes)){
-      let source=path.join(dir,'panorama-render/v2',theme,point.id+'.jpg'),image;
-      try{image=await fs.readFile(source);}catch(error){
-        if(error.code!=='ENOENT')throw error;
-        // Git检出包含已发布图片，重新打包不依赖本机Blender缓存。
-        source=path.join(webDir,'panoramas',theme,point.id+'.jpg');image=await fs.readFile(source);
-      }
+      const source=path.join(imageRoot,theme,point.id+'.jpg'),image=await fs.readFile(source);
       if(web){
         // 线上按需请求当前房间，所有资源使用相对路径，支持站点子目录。
-        images[theme]='panoramas/'+theme+'/'+point.id+'.jpg';
+        const imagePath='panoramas/'+theme+'/'+point.id+'.jpg';
+        images[theme]=imagePath+'?v=people-16';
         await fs.mkdir(path.join(webDir,'panoramas',theme),{recursive:true});
-        const target=path.join(webDir,images[theme]);
+        const target=path.join(webDir,imagePath);
         if(source!==target)await fs.copyFile(source,target);
       }else images[theme]='data:image/jpeg;base64,'+image.toString('base64');
     }

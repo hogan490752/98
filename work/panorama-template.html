@@ -33,16 +33,16 @@ THE SOFTWARE.
 </head>
 <body>
 <!-- 画面优先，固定点位与小地图辅助；转头和缩放只改变观察方向，点位采用柔和切换。 -->
-<header><div><strong>我的家</strong><span>98㎡ · 三室两厅两卫 · 全景看房</span></div><div class="styles" aria-label="装修风格"><button data-theme="warm" aria-pressed="true">暖木现代</button><button data-theme="minimal" aria-pressed="false">清爽极简</button><button data-theme="urban" aria-pressed="false">都市深色</button></div><div class="tools"><button id="shot">截图</button><button id="help">查看说明</button><a href="apartment-viewer.html?v=styles-15">装修布局</a><button id="full">全屏</button></div></header>
+<header><div><strong>我的家</strong><span>98㎡ · 三室两厅两卫 · 全景看房</span></div><div class="styles" aria-label="装修风格"><button data-theme="warm" aria-pressed="true">暖木现代</button><button data-theme="minimal" aria-pressed="false">清爽极简</button><button data-theme="urban" aria-pressed="false">都市深色</button></div><div class="tools"><button id="shot">截图</button><button id="help">查看说明</button><a href="apartment-viewer.html?v=people-16">装修布局</a><button id="full">全屏</button></div></header>
 <main id="view"><canvas id="scene" tabindex="0" aria-label="房屋全景，拖动转头，方向键查看，滚轮缩放"></canvas>
 <div class="fade" id="fade"></div><div class="hotspots" id="hotspots" aria-label="相邻点位"></div>
 <div class="map-card"><span>户型定位 · 北 ↑</span><svg id="map" aria-label="点击户型中的点位进入房间" role="group"></svg></div>
-<div class="point-meta"><strong id="room-name">客厅</strong><span id="theme-name">暖木现代 · 360°环视</span></div>
+<div class="point-meta"><strong id="room-name">客厅</strong><span id="theme-name">暖木现代 · 360°环视</span><span>站立身高：蓝灰1.70m · 米色1.60m</span></div>
 <p class="hint">拖动看周围 · 滚轮 / 双指缩放 · 点击圆环切换点位</p>
 <div class="bottom"><div class="view-tools"><button id="zoom-out" aria-label="缩小视野">−</button><button id="zoom-in" aria-label="放大视野">＋</button><button id="reset" aria-label="恢复当前点位视角">↺</button><button id="clean" aria-label="切换纯净视图">◻</button></div><nav class="room-nav" id="rooms" aria-label="房间点位"></nav></div>
 <div class="notice" id="notice" role="status" hidden></div>
 <div class="loading" id="loading" role="status"><div><span id="loading-text">正在进入客厅…</span><small>拖动画面看周围，点击点位切换房间。</small><button id="retry" hidden>重新加载</button></div></div>
 </main>
-<dialog class="help-dialog" id="help-dialog"><h2>从一个点，看完整个房间</h2><p>鼠标或手指拖动画面可以环视。滚轮、双指手势或右下角按钮可以缩放；方向键也可以转头。点击地面圆环、房间名称或小地图，进入另一个固定点位。</p><p>顶部可以切换三套全屋风格，切换时保持当前观察角度。家具调整仍在“装修布局”中进行，调整后需要重新渲染全景。户型尺寸及室外景观为示意。</p><form method="dialog"><button>知道了</button></form></dialog>
+<dialog class="help-dialog" id="help-dialog"><h2>从一个点，看完整个房间</h2><p>鼠标或手指拖动画面可以环视。滚轮、双指手势或右下角按钮可以缩放；方向键也可以转头。点击地面圆环、房间名称或小地图，进入另一个固定点位。</p><p>三套风格都放置了14个比例假人。蓝灰色表示站立身高1.70米，米色表示1.60米；坐下或躺下只改变姿势，身体比例保持一致。</p><p>顶部可以切换三套全屋风格，切换时保持当前观察角度。家具调整仍在“装修布局”中进行，调整后需要重新渲染全景。户型尺寸及室外景观为示意。</p><form method="dialog"><button>知道了</button></form></dialog>
 <script>/*BUNDLED_SCRIPT*/</script>
 </body></html>

@@ -3,7 +3,7 @@ from pathlib import Path
 from PIL import Image
 
 folder=Path(__file__).resolve().parent/'panorama-render'
-for source in (folder/'v2').rglob('*.png'):
+for source in (folder/'v3').rglob('*.png'):
     if source.name.endswith('-preview.png'):continue
     target=source.with_suffix('.jpg')
     if target.exists() and target.stat().st_mtime>=source.stat().st_mtime:continue
