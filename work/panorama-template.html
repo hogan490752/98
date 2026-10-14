@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>我的家 · 全景看房</title>
+<!--
+Three.js: The MIT License
+Copyright © 2010-2026 three.js authors
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<style>
+*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#f3f3ec;background:#151d18}button,a{font:inherit;color:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #b3dac7;outline-offset:4px}button{border:1px solid #ffffff38;background:#1b3025db;border-radius:6px;padding:10px 15px}button:hover{background:#365746}button[aria-pressed=true]{background:#dbe6db;color:#233a2b;border-color:#dbe6db}header{height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff22;gap:12px}header strong{font-size:18px;font-weight:600}header span{display:block;font-size:11px;color:#c2cdc2;margin-top:3px}.tools{display:flex;gap:8px;align-items:center}.tools a{padding:10px 14px;text-decoration:none;font-size:12px;border:1px solid #ffffff38;border-radius:6px}.tools button{font-size:12px}main{position:relative;height:calc(100dvh - 64px);overflow:hidden;background:#e3dfd4}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}canvas.dragging{cursor:grabbing}.map-card{position:absolute;top:20px;left:20px;width:148px;background:#21352adc;border:1px solid #ffffff28;padding:12px;border-radius:8px;backdrop-filter:blur(12px)}.map-card>span{font-size:11px;color:#dae1d6}.map-card svg{display:block;width:100%;height:165px;margin-top:8px;overflow:visible}.map-card svg g{cursor:pointer}.map-card svg g:focus{outline:none}.map-card svg g:focus circle{stroke-width:.07;stroke:#fff}.point-meta{position:absolute;top:20px;left:184px;background:#f9f8f0eb;color:#24382b;padding:10px 15px;border-radius:6px;max-width:calc(100% - 240px)}.point-meta strong{display:block;font-size:16px;font-weight:500}.point-meta span{display:block;font-size:11px;margin-top:4px;color:#627064}.bottom{position:absolute;bottom:20px;left:20px;right:20px;display:flex;align-items:end;justify-content:space-between;gap:16px;pointer-events:none}.room-nav{display:flex;gap:6px;overflow:auto;max-width:calc(100% - 160px);padding:4px;pointer-events:auto}.room-nav button{white-space:nowrap;font-size:12px;min-height:42px;flex:none}.view-tools{display:flex;gap:6px;pointer-events:auto}.view-tools button{min-width:43px;height:43px;padding:0;font-size:19px}.hint{position:absolute;bottom:85px;left:24px;color:#fff;font-size:11px;background:#21352adc;padding:8px 12px;border-radius:5px;pointer-events:none}.hotspots{position:absolute;inset:0;pointer-events:none}.hotspot{position:absolute;border:0;background:none;padding:8px;transform:translate(-50%,-50%);color:white;pointer-events:auto;white-space:nowrap;filter:drop-shadow(0 2px 4px #0009)}.hotspot:hover{background:transparent}.hotspot .ring{display:block;width:37px;height:22px;border:3px solid #fff;border-radius:50%;background:#ffffff25;margin:auto;box-shadow:0 0 0 4px #ffffff14}.hotspot .text{display:block;background:#21352abd;font-size:11px;padding:4px 8px;margin-top:5px;border-radius:4px}.fade{position:absolute;inset:0;background:#142018;opacity:0;pointer-events:none;transition:opacity .28s}.fade.visible{opacity:.4}.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#172c24dd;z-index:5}.loading[hidden]{display:none}.loading div{text-align:center;max-width:300px;padding:24px;line-height:1.8}.loading small{display:block;color:#bdcdbd;margin-top:10px}.loading button{margin-top:15px}.notice{position:absolute;right:20px;top:20px;padding:10px 14px;background:#203426da;font-size:12px;border-radius:5px;max-width:280px}.notice[hidden]{display:none}.help-dialog{border:1px solid #ddd;background:#f8f7ef;color:#24372b;border-radius:10px;padding:24px;width:min(420px,90vw);line-height:1.8}.help-dialog::backdrop{background:#11201999}.help-dialog h2{font-weight:500;font-size:20px;margin:0 0 10px}.help-dialog p{font-size:13px}.help-dialog button{color:#fff;float:right}body.chrome-hidden header,body.chrome-hidden .map-card,body.chrome-hidden .point-meta,body.chrome-hidden .hint,body.chrome-hidden .room-nav{display:none}body.chrome-hidden main{height:100dvh}
+.room-nav{order:1}.view-tools{order:2}
+.styles{display:flex;gap:5px}.styles button{font-size:12px;padding:9px 12px}
+@media(max-width:760px){header{height:58px;padding:0 12px}header strong{font-size:15px}header span{font-size:10px}.tools{gap:5px}.tools a,.tools button{font-size:10px;padding:9px}.tools #shot{display:none}main{height:calc(100dvh - 58px)}.map-card{left:12px;top:12px;width:112px;padding:8px}.map-card svg{height:126px}.map-card>span{font-size:10px}.point-meta{left:136px;top:12px;max-width:calc(100% - 148px);padding:9px 12px}.point-meta strong{font-size:14px}.point-meta span{font-size:10px}.bottom{left:8px;right:8px;bottom:12px;display:block}.room-nav{max-width:100%;gap:5px}.room-nav button{font-size:11px;padding:10px}.view-tools{justify-content:end;margin-bottom:9px}.hint{left:12px;bottom:121px;font-size:10px;max-width:calc(100% - 24px)}.notice{right:12px;top:78px;max-width:calc(100% - 150px)}.hotspot .ring{width:31px;height:19px}.hotspot .text{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.fade{transition:none}}
+@media(max-width:760px){header{height:108px;flex-wrap:wrap;padding:7px 12px;gap:3px 8px}main{height:calc(100dvh - 108px)}.styles{order:3;flex-basis:100%;justify-content:center}.styles button{flex:1;min-height:44px;font-size:12px}.tools button,.tools a{min-height:40px}}
+</style>
+</head>
+<body>
+<!-- 画面优先，固定点位与小地图辅助；转头和缩放只改变观察方向，点位采用柔和切换。 -->
+<header><div><strong>我的家</strong><span>98㎡ · 三室两厅两卫 · 全景看房</span></div><div class="styles" aria-label="装修风格"><button data-theme="warm" aria-pressed="true">暖木现代</button><button data-theme="minimal" aria-pressed="false">清爽极简</button><button data-theme="urban" aria-pressed="false">都市深色</button></div><div class="tools"><button id="shot">截图</button><button id="help">查看说明</button><a href="apartment-viewer.html?v=styles-15">装修布局</a><button id="full">全屏</button></div></header>
+<main id="view"><canvas id="scene" tabindex="0" aria-label="房屋全景，拖动转头，方向键查看，滚轮缩放"></canvas>
+<div class="fade" id="fade"></div><div class="hotspots" id="hotspots" aria-label="相邻点位"></div>
+<div class="map-card"><span>户型定位 · 北 ↑</span><svg id="map" aria-label="点击户型中的点位进入房间" role="group"></svg></div>
+<div class="point-meta"><strong id="room-name">客厅</strong><span id="theme-name">暖木现代 · 360°环视</span></div>
+<p class="hint">拖动看周围 · 滚轮 / 双指缩放 · 点击圆环切换点位</p>
+<div class="bottom"><div class="view-tools"><button id="zoom-out" aria-label="缩小视野">−</button><button id="zoom-in" aria-label="放大视野">＋</button><button id="reset" aria-label="恢复当前点位视角">↺</button><button id="clean" aria-label="切换纯净视图">◻</button></div><nav class="room-nav" id="rooms" aria-label="房间点位"></nav></div>
+<div class="notice" id="notice" role="status" hidden></div>
+<div class="loading" id="loading" role="status"><div><span id="loading-text">正在进入客厅…</span><small>拖动画面看周围，点击点位切换房间。</small><button id="retry" hidden>重新加载</button></div></div>
+</main>
+<dialog class="help-dialog" id="help-dialog"><h2>从一个点，看完整个房间</h2><p>鼠标或手指拖动画面可以环视。滚轮、双指手势或右下角按钮可以缩放；方向键也可以转头。点击地面圆环、房间名称或小地图，进入另一个固定点位。</p><p>顶部可以切换三套全屋风格，切换时保持当前观察角度。家具调整仍在“装修布局”中进行，调整后需要重新渲染全景。户型尺寸及室外景观为示意。</p><form method="dialog"><button>知道了</button></form></dialog>
+<script>/*BUNDLED_SCRIPT*/</script>
+</body></html>

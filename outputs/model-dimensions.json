@@ -1,0 +1,869 @@
+{
+  "version": 5,
+  "source": "图二",
+  "units": "米",
+  "axes": "Y 向上；图二上方为北，模型 Z 负方向为北",
+  "confirmed": {
+    "wallHeight": 2.9,
+    "livingClearWidth": 3.4,
+    "masterClearWidth": 3.2,
+    "northAreaUse": "用户红框指示的北侧区域为室内小房间",
+    "smallRoomEntrance": "从玄关进入",
+    "kitchenEntrance": "从玄关进入；面向餐厅为完整隔墙",
+    "refrigeratorLocation": "客餐厅侧向外凸出的凹位；不放在厨房内",
+    "areaDisplay": "用户确认98㎡总面积包含墙体和赠送空间；模型按这个总面积校准"
+  },
+  "assumptions": {
+    "widthDirection": "客厅与主卧的宽度均解释为图二左右方向的净宽",
+    "calibration": "X 分段校准两处净宽；Z 方向在图面比例基础上校正进深，使含墙体总面积为98㎡",
+    "outerWallThickness": 0.2,
+    "innerWallThickness": 0.12,
+    "slabThickness": 0.16,
+    "doorHeight": 2.1,
+    "entranceHeight": 2.2,
+    "windowSills": "0.05–1.50，依据位置估算",
+    "platforms": "仅南侧未命名区域暂按设备平台处理，栏墙高 1.10；北侧红框区域已确认为小房间",
+    "ceiling": "模型无顶板以便查看；2.90 作为建模墙高，未扣除实际楼板厚度"
+  },
+  "check": {
+    "livingClearWidth": 3.4,
+    "masterClearWidth": 3.200000000000002,
+    "fullHeight": 2.9,
+    "wallSolids": 72,
+    "openings": 16,
+    "footprintArea": 98.00000000000036,
+    "spacesArea": 84.54825534603346,
+    "wallsArea": 13.451744653966557
+  },
+  "footprint": [
+    [
+      -0.15,
+      -0.1
+    ],
+    [
+      4.093770491803278,
+      -0.1
+    ],
+    [
+      4.093770491803278,
+      3.958259006122779
+    ],
+    [
+      9.534262295081968,
+      3.958259006122779
+    ],
+    [
+      9.534262295081968,
+      11.203053689286618
+    ],
+    [
+      6.920832343391146,
+      11.203053689286618
+    ],
+    [
+      6.920832343391146,
+      12.617728483674489
+    ],
+    [
+      -0.2,
+      12.617728483674489
+    ],
+    [
+      -0.2,
+      6.801898239286277
+    ],
+    [
+      0.2483606557377049,
+      6.801898239286277
+    ],
+    [
+      0.2483606557377049,
+      5.873016332653531
+    ],
+    [
+      -0.6166666666666667,
+      5.873016332653531
+    ],
+    [
+      -0.6166666666666667,
+      4.386948337755467
+    ],
+    [
+      -0.15,
+      4.386948337755467
+    ]
+  ],
+  "dimensions": [
+    {
+      "name": "客厅净宽",
+      "value": 3.4,
+      "a": [
+        0,
+        9.974171782653872
+      ],
+      "b": [
+        3.4,
+        9.974171782653872
+      ]
+    },
+    {
+      "name": "主卧净宽",
+      "value": 3.2,
+      "a": [
+        6.134262295081967,
+        10.045620004592655
+      ],
+      "b": [
+        9.334262295081967,
+        10.045620004592655
+      ]
+    }
+  ],
+  "wallLayout": [
+    {
+      "name": "Exterior_North",
+      "axis": "h",
+      "at": 102,
+      "a": 402,
+      "b": 695,
+      "t": 0.2
+    },
+    {
+      "name": "Exterior_Entrance_West",
+      "axis": "v",
+      "at": 402,
+      "a": 102,
+      "b": 416,
+      "t": 0.2,
+      "holes": [
+        {
+          "a": 121,
+          "b": 189,
+          "sill": 0,
+          "top": 2.2,
+          "kind": "entrance",
+          "width": 0.95
+        }
+      ]
+    },
+    {
+      "name": "Exterior_Notch_North",
+      "axis": "h",
+      "at": 416,
+      "a": 374,
+      "b": 430,
+      "t": 0.2
+    },
+    {
+      "name": "Exterior_Notch_West",
+      "axis": "v",
+      "at": 374,
+      "a": 416,
+      "b": 506,
+      "t": 0.2
+    },
+    {
+      "name": "Exterior_Notch_South",
+      "axis": "h",
+      "at": 506,
+      "a": 374,
+      "b": 430,
+      "t": 0.2
+    },
+    {
+      "name": "Exterior_Notch_Return",
+      "axis": "v",
+      "at": 430,
+      "a": 506,
+      "b": 585,
+      "t": 0.2
+    },
+    {
+      "name": "Exterior_Living_Return",
+      "axis": "h",
+      "at": 585,
+      "a": 399,
+      "b": 430,
+      "t": 0.2
+    },
+    {
+      "name": "Exterior_Living_West",
+      "axis": "v",
+      "at": 399,
+      "a": 585,
+      "b": 978,
+      "t": 0.2
+    },
+    {
+      "name": "Exterior_Balcony_South",
+      "axis": "h",
+      "at": 978,
+      "a": 399,
+      "b": 846,
+      "t": 0.2,
+      "holes": [
+        {
+          "a": 436,
+          "b": 608,
+          "sill": 0.05,
+          "top": 2.5,
+          "kind": "window"
+        },
+        {
+          "a": 616,
+          "b": 798,
+          "sill": 0.05,
+          "top": 2.5,
+          "kind": "window"
+        }
+      ]
+    },
+    {
+      "name": "Service_South_Parapet",
+      "axis": "h",
+      "at": 978,
+      "a": 846,
+      "b": 899,
+      "t": 0.12,
+      "height": 1.1
+    },
+    {
+      "name": "Service_East_Parapet",
+      "axis": "v",
+      "at": 899,
+      "a": 879,
+      "b": 978,
+      "t": 0.12,
+      "height": 1.1
+    },
+    {
+      "name": "Service_Balcony_Divider",
+      "axis": "v",
+      "at": 846,
+      "a": 879,
+      "b": 978,
+      "t": 0.12
+    },
+    {
+      "name": "Exterior_Master_South",
+      "axis": "h",
+      "at": 879,
+      "a": 846,
+      "b": 1065,
+      "t": 0.2,
+      "holes": [
+        {
+          "a": 906,
+          "b": 1019,
+          "sill": 0.65,
+          "top": 2.25,
+          "kind": "window"
+        }
+      ]
+    },
+    {
+      "name": "Exterior_Master_East",
+      "axis": "v",
+      "at": 1065,
+      "a": 386,
+      "b": 879,
+      "t": 0.2
+    },
+    {
+      "name": "Exterior_Rooms_North",
+      "axis": "h",
+      "at": 386,
+      "a": 695,
+      "b": 1065,
+      "t": 0.2,
+      "holes": [
+        {
+          "a": 714,
+          "b": 763,
+          "sill": 1.5,
+          "top": 2.3,
+          "kind": "window"
+        },
+        {
+          "a": 800,
+          "b": 901,
+          "sill": 0.9,
+          "top": 2.25,
+          "kind": "window"
+        },
+        {
+          "a": 970,
+          "b": 1017,
+          "sill": 1.5,
+          "top": 2.3,
+          "kind": "window"
+        }
+      ]
+    },
+    {
+      "name": "Exterior_Kitchen_East",
+      "axis": "v",
+      "at": 695,
+      "a": 276,
+      "b": 431,
+      "t": 0.2,
+      "holes": [
+        {
+          "a": 284,
+          "b": 322,
+          "sill": 1,
+          "top": 2.2,
+          "kind": "window"
+        }
+      ]
+    },
+    {
+      "name": "Exterior_Small_Room_East",
+      "axis": "v",
+      "at": 695,
+      "a": 102,
+      "b": 276,
+      "t": 0.2
+    },
+    {
+      "name": "Entrance_Small_Room_Divider",
+      "axis": "v",
+      "at": 526,
+      "a": 102,
+      "b": 326,
+      "t": 0.12,
+      "holes": [
+        {
+          "a": 161,
+          "b": 217,
+          "sill": 0,
+          "top": 2.1,
+          "kind": "door",
+          "width": 0.8
+        }
+      ]
+    },
+    {
+      "name": "Kitchen_North",
+      "axis": "h",
+      "at": 276,
+      "a": 526,
+      "b": 695,
+      "t": 0.12
+    },
+    {
+      "name": "Kitchen_West",
+      "axis": "v",
+      "at": 526,
+      "a": 326,
+      "b": 431,
+      "t": 0.12,
+      "holes": [
+        {
+          "a": 352,
+          "b": 408,
+          "sill": 0,
+          "top": 2.1,
+          "kind": "door",
+          "width": 0.8
+        }
+      ]
+    },
+    {
+      "name": "Kitchen_South",
+      "axis": "h",
+      "at": 431,
+      "a": 526,
+      "b": 655,
+      "t": 0.12
+    },
+    {
+      "name": "Bath_West_Step",
+      "axis": "h",
+      "at": 431,
+      "a": 655,
+      "b": 695,
+      "t": 0.12
+    },
+    {
+      "name": "Bath_West",
+      "axis": "v",
+      "at": 655,
+      "a": 431,
+      "b": 581,
+      "t": 0.12
+    },
+    {
+      "name": "Bath_Guest_Divider",
+      "axis": "v",
+      "at": 773,
+      "a": 386,
+      "b": 581,
+      "t": 0.12
+    },
+    {
+      "name": "Guest_Bath_Divider",
+      "axis": "v",
+      "at": 951,
+      "a": 386,
+      "b": 581,
+      "t": 0.12
+    },
+    {
+      "name": "Bath_Guest_South",
+      "axis": "h",
+      "at": 581,
+      "a": 655,
+      "b": 773,
+      "t": 0.12,
+      "holes": [
+        {
+          "a": 714,
+          "b": 761,
+          "sill": 0,
+          "top": 2.1,
+          "kind": "door",
+          "width": 0.7
+        }
+      ]
+    },
+    {
+      "name": "Guest_North_South",
+      "axis": "h",
+      "at": 581,
+      "a": 773,
+      "b": 951,
+      "t": 0.12,
+      "holes": [
+        {
+          "a": 782,
+          "b": 837,
+          "sill": 0,
+          "top": 2.1,
+          "kind": "door",
+          "width": 0.8
+        }
+      ]
+    },
+    {
+      "name": "Bath_Master_South",
+      "axis": "h",
+      "at": 581,
+      "a": 951,
+      "b": 1065,
+      "t": 0.12,
+      "holes": [
+        {
+          "a": 958,
+          "b": 1011,
+          "sill": 0,
+          "top": 2.1,
+          "kind": "door",
+          "width": 0.7
+        }
+      ]
+    },
+    {
+      "name": "Master_West",
+      "axis": "v",
+      "at": 846,
+      "a": 581,
+      "b": 879,
+      "t": 0.12,
+      "holes": [
+        {
+          "a": 600,
+          "b": 654,
+          "sill": 0,
+          "top": 2.1,
+          "kind": "door",
+          "width": 0.8
+        }
+      ]
+    },
+    {
+      "name": "Guest_South_North",
+      "axis": "h",
+      "at": 670,
+      "a": 655,
+      "b": 846,
+      "t": 0.12,
+      "holes": [
+        {
+          "a": 661,
+          "b": 717,
+          "sill": 0,
+          "top": 2.1,
+          "kind": "door",
+          "width": 0.8
+        }
+      ]
+    },
+    {
+      "name": "Guest_South_West",
+      "axis": "v",
+      "at": 655,
+      "a": 670,
+      "b": 865,
+      "t": 0.12
+    },
+    {
+      "name": "Guest_South_South",
+      "axis": "h",
+      "at": 865,
+      "a": 655,
+      "b": 846,
+      "t": 0.12,
+      "holes": [
+        {
+          "a": 704,
+          "b": 798,
+          "sill": 0.65,
+          "top": 2.25,
+          "kind": "window"
+        }
+      ]
+    }
+  ],
+  "openings": [
+    {
+      "wall": "Exterior_Entrance_West",
+      "axis": "v",
+      "fixed": -0.049999999999999996,
+      "start": 0.282351152551082,
+      "end": 1.232351152551082,
+      "sill": 0,
+      "top": 2.2,
+      "kind": "entrance",
+      "estimated": true
+    },
+    {
+      "wall": "Exterior_Balcony_South",
+      "axis": "h",
+      "fixed": 12.517728483674489,
+      "start": 0.43196721311475406,
+      "end": 2.828688524590164,
+      "sill": 0.05,
+      "top": 2.5,
+      "kind": "window",
+      "estimated": true
+    },
+    {
+      "wall": "Exterior_Balcony_South",
+      "axis": "h",
+      "fixed": 12.517728483674489,
+      "start": 2.940163934426229,
+      "end": 5.429016393442623,
+      "sill": 0.05,
+      "top": 2.5,
+      "kind": "window",
+      "estimated": true
+    },
+    {
+      "wall": "Exterior_Master_South",
+      "axis": "h",
+      "fixed": 11.103053689286618,
+      "start": 6.969044903777618,
+      "end": 8.715904807159262,
+      "sill": 0.65,
+      "top": 2.25,
+      "kind": "window",
+      "estimated": true
+    },
+    {
+      "wall": "Exterior_Rooms_North",
+      "axis": "h",
+      "fixed": 4.058259006122779,
+      "start": 4.258524590163933,
+      "end": 4.941311475409837,
+      "sill": 1.5,
+      "top": 2.3,
+      "kind": "window",
+      "estimated": true
+    },
+    {
+      "wall": "Exterior_Rooms_North",
+      "axis": "h",
+      "fixed": 4.058259006122779,
+      "start": 5.45688524590164,
+      "end": 6.891750217787282,
+      "sill": 0.9,
+      "top": 2.25,
+      "kind": "window",
+      "estimated": true
+    },
+    {
+      "wall": "Exterior_Rooms_North",
+      "axis": "h",
+      "fixed": 4.058259006122779,
+      "start": 7.958416884453948,
+      "end": 8.684986932763126,
+      "sill": 1.5,
+      "top": 2.3,
+      "kind": "window",
+      "estimated": true
+    },
+    {
+      "wall": "Exterior_Kitchen_East",
+      "axis": "v",
+      "fixed": 3.9937704918032786,
+      "start": 2.6007152785716405,
+      "end": 3.1437217653063785,
+      "sill": 1,
+      "top": 2.2,
+      "kind": "window",
+      "estimated": true
+    },
+    {
+      "wall": "Entrance_Small_Room_Divider",
+      "axis": "v",
+      "fixed": 1.6860655737704917,
+      "start": 0.8431990617347952,
+      "end": 1.6431990617347951,
+      "sill": 0,
+      "top": 2.1,
+      "kind": "door",
+      "estimated": true
+    },
+    {
+      "wall": "Kitchen_West",
+      "axis": "v",
+      "fixed": 1.6860655737704917,
+      "start": 3.5725211397962418,
+      "end": 4.372521139796242,
+      "sill": 0,
+      "top": 2.1,
+      "kind": "door",
+      "estimated": true
+    },
+    {
+      "wall": "Bath_Guest_South",
+      "axis": "h",
+      "fixed": 6.844739661735251,
+      "start": 4.235983606557378,
+      "end": 4.935983606557377,
+      "sill": 0,
+      "top": 2.1,
+      "kind": "door",
+      "estimated": true
+    },
+    {
+      "wall": "Guest_North_South",
+      "axis": "h",
+      "fixed": 6.844739661735251,
+      "start": 5.189262295081967,
+      "end": 5.989262295081968,
+      "sill": 0,
+      "top": 2.1,
+      "kind": "door",
+      "estimated": true
+    },
+    {
+      "wall": "Bath_Master_South",
+      "axis": "h",
+      "fixed": 6.844739661735251,
+      "start": 7.8325714738259276,
+      "end": 8.532571473825927,
+      "sill": 0,
+      "top": 2.1,
+      "kind": "door",
+      "estimated": true
+    },
+    {
+      "wall": "Master_West",
+      "axis": "v",
+      "fixed": 6.074262295081967,
+      "start": 7.102063303572039,
+      "end": 7.90206330357204,
+      "sill": 0,
+      "top": 2.1,
+      "kind": "door",
+      "estimated": true
+    },
+    {
+      "wall": "Guest_South_North",
+      "axis": "h",
+      "fixed": 8.116518012245558,
+      "start": 3.5101639344262296,
+      "end": 4.31016393442623,
+      "sill": 0,
+      "top": 2.1,
+      "kind": "door",
+      "estimated": true
+    },
+    {
+      "wall": "Guest_South_South",
+      "axis": "h",
+      "fixed": 10.90299866785803,
+      "start": 4.119180327868852,
+      "end": 5.429016393442623,
+      "sill": 0.65,
+      "top": 2.25,
+      "kind": "window",
+      "estimated": true
+    }
+  ],
+  "areaReport": {
+    "totalArea": 98,
+    "footprintArea": 98.00000000000036,
+    "wallArea": 13.451744653966557,
+    "netArea": 84.54825534603346,
+    "spaces": [
+      {
+        "id": "small-room",
+        "name": "小房间",
+        "label": "小房间",
+        "anchor": [
+          610,
+          185
+        ],
+        "netArea": 5.0064166910778845,
+        "netDisplay": 5.01
+      },
+      {
+        "id": "kitchen",
+        "name": "厨房",
+        "label": "厨房",
+        "anchor": [
+          606,
+          351
+        ],
+        "netArea": 4.499216036757244,
+        "netDisplay": 4.5
+      },
+      {
+        "id": "bedroom-north",
+        "name": "次卧2（北侧）",
+        "label": "次卧2",
+        "anchor": [
+          862,
+          481
+        ],
+        "netArea": 6.471756914101999,
+        "netDisplay": 6.47
+      },
+      {
+        "id": "bath-west",
+        "name": "卫生间1（西侧）",
+        "label": "卫1",
+        "anchor": [
+          714,
+          492
+        ],
+        "netArea": 3.601440152525404,
+        "netDisplay": 3.6
+      },
+      {
+        "id": "bath-east",
+        "name": "卫生间2（东侧）",
+        "label": "卫2",
+        "anchor": [
+          1005,
+          492
+        ],
+        "netArea": 4.227491907424948,
+        "netDisplay": 4.23
+      },
+      {
+        "id": "master",
+        "name": "主卧",
+        "label": "主卧",
+        "anchor": [
+          953,
+          726
+        ],
+        "netArea": 13.114604888164378,
+        "netDisplay": 13.11
+      },
+      {
+        "id": "bedroom-south",
+        "name": "次卧1（南侧）",
+        "label": "次卧1",
+        "anchor": [
+          744,
+          756
+        ],
+        "netArea": 6.65090215985963,
+        "netDisplay": 6.65
+      },
+      {
+        "id": "service",
+        "name": "设备平台（暂定）",
+        "label": "设备位",
+        "anchor": [
+          876,
+          928
+        ],
+        "netArea": 0.8837914402397996,
+        "netDisplay": 0.88
+      },
+      {
+        "id": "balcony",
+        "name": "阳台",
+        "label": "阳台",
+        "anchor": [
+          615,
+          923
+        ],
+        "netArea": 8.966726680796464,
+        "netDisplay": 8.97
+      },
+      {
+        "id": "living",
+        "name": "客厅",
+        "label": "客厅",
+        "anchor": [
+          525,
+          724
+        ],
+        "netArea": 13.64178257794775,
+        "netDisplay": 13.64
+      },
+      {
+        "id": "entrance",
+        "name": "玄关",
+        "label": "玄关",
+        "anchor": [
+          463,
+          249
+        ],
+        "netArea": 7.275628210660641,
+        "netDisplay": 7.28
+      },
+      {
+        "id": "dining",
+        "name": "餐厅",
+        "label": "餐厅",
+        "anchor": [
+          532,
+          519
+        ],
+        "netArea": 7.266553673477132,
+        "netDisplay": 7.27
+      },
+      {
+        "id": "hall",
+        "name": "过道",
+        "label": "过道",
+        "anchor": [
+          750,
+          624
+        ],
+        "netArea": 2.9419440130001795,
+        "netDisplay": 2.94
+      }
+    ],
+    "areaBasis": "按用户确认口径：图内全部空间（含赠送）加模型墙体投影合计98㎡",
+    "netMethod": "按模型墙体内侧计算；门洞门槛归入墙体投影；开放区域按图示位置划区",
+    "estimated": true,
+    "netDisplayTotal": 84.55,
+    "wallDisplay": 13.45
+  },
+  "depthCalibration": {
+    "referenceArea": 95.61656997495609,
+    "targetArea": 98,
+    "depthFactor": 1.0254921266507437,
+    "method": "保持两处确认净宽，校正估算进深至含墙体总面积98㎡"
+  },
+  "note": "保持两处确认净宽和墙高，校准估算进深至总面积98㎡。各空间地面面积与墙体单独记录，图内赠送空间纳入对应区域，不另加面积。"
+}

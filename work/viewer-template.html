@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的家 · 装修工作台</title>
+<!--
+Bundled Three.js: The MIT License
+Copyright © 2010-2026 three.js authors
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#353832;background:#f7f6f2}
+button,input{font:inherit}button{background:transparent;border:1px solid #d0d0c8;border-radius:6px;padding:9px 13px;color:inherit;cursor:pointer}button:hover{background:#eceee6}button[aria-pressed=true]{background:#315f51;border-color:#315f51;color:#fff}button:focus-visible,input:focus-visible{outline:3px solid #559985;outline-offset:3px}
+.header{padding:24px 32px 18px;display:flex;justify-content:space-between;align-items:end;gap:16px}.eyebrow{font-size:12px;letter-spacing:.1em;color:#627064;margin-bottom:5px}h1{font-weight:500;font-size:24px;margin:0}.confirmed{display:flex;gap:24px;font-size:13px;color:#5b6258;flex-wrap:wrap}.confirmed strong{display:block;font-size:21px;font-weight:500;color:#315f51;margin-top:3px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 248px;gap:0;padding:0 24px 24px}.viewer{position:relative;height:calc(100vh - 142px);min-height:520px;max-height:850px;background:#eae7e1;border-radius:9px;overflow:hidden}canvas{display:block;width:100%;height:100%;touch-action:none}.help{position:absolute;bottom:17px;left:19px;margin:0;font-size:12px;color:#585e56;pointer-events:none}.north{position:absolute;top:17px;left:19px;font-size:12px;color:#5a6359;pointer-events:none}.north span{display:block;font-size:22px;line-height:1.15}.panel{padding:10px 0 10px 25px;font-size:13px}.panel h2{font-size:14px;font-weight:500;margin:12px 0}.button-row{display:flex;gap:7px;flex-wrap:wrap}.panel hr{border:0;border-top:1px solid #dddcd3;margin:24px 0}.label-row{display:flex;justify-content:space-between;gap:8px;margin:20px 0 8px}input[type=range]{width:100%;accent-color:#315f51;margin:0 0 10px}label.check{display:flex;align-items:center;gap:8px;margin-top:18px;cursor:pointer}input[type=checkbox]{accent-color:#315f51}.note{font-size:12px;line-height:1.8;color:#666b62;margin:0}.status{font-size:11px;color:#6c786b;margin-top:17px}.footer{font-size:12px;color:#6b7167;margin:0 0 18px;line-height:1.65}
+.walking .layout{grid-template-columns:minmax(0,1fr)}.walking .panel,.walking .north{display:none}.walking .viewer{min-height:420px;max-height:none;height:calc(100dvh - 142px)}.walking .help{background:#f8f7f0e6;color:#3b443b;padding:8px 12px;border-radius:5px}.game-toolbar{display:none;position:absolute;right:16px;top:16px;gap:7px;z-index:3}.walking .game-toolbar{display:flex}.game-toolbar button{background:#f7f6f1e8}.crosshair{position:absolute;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);pointer-events:none;opacity:.65}.crosshair:before,.crosshair:after{content:"";position:absolute;background:#fbfaf6;box-shadow:0 0 2px #333}.crosshair:before{width:12px;height:2px;top:5px}.crosshair:after{height:12px;width:2px;left:5px}.walk-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#28302820;z-index:2}.start-card{width:min(370px,calc(100% - 36px));padding:26px;background:#f8f7f1f5;border-radius:10px;box-shadow:0 8px 36px #1d261727}.start-card h2{font-size:24px;font-weight:500;margin:0 0 12px}.start-card p{font-size:14px;line-height:1.8;color:#535e53;margin:0 0 18px}.start-card .start-button{width:100%;background:#315f51;color:#fff;border-color:#315f51;font-size:16px;padding:12px}.secondary-actions{display:flex;justify-content:space-between;gap:10px;margin-top:12px}.secondary-actions button{font-size:12px;border:0;padding:8px}.viewer:fullscreen{width:100vw;height:100dvh;min-height:0;max-height:none;border-radius:0}.viewer:fullscreen .help{bottom:18px}[hidden]{display:none!important}
+@media(max-width:760px){.header{padding:18px 16px;display:block}h1{font-size:21px}.confirmed{margin-top:16px;gap:22px}.confirmed strong{font-size:18px}.layout{padding:0 12px 16px;grid-template-columns:1fr}.viewer{height:510px;min-height:0}.panel{padding:12px 4px;display:flex;gap:14px;flex-wrap:wrap;align-items:start}.panel>section{flex:1;min-width:180px}.panel hr{display:none}.panel h2{margin-top:8px}.panel .assumptions{flex-basis:100%}.help{max-width:calc(100% - 36px);font-size:11px}.label-row{margin-top:8px}}
+@media(max-width:420px){.viewer{height:470px}.confirmed{gap:16px;font-size:12px}.confirmed strong{font-size:17px}}
+@media(max-width:760px){.walking .viewer{height:calc(100dvh - 183px);min-height:390px}.walking .help{font-size:11px;left:12px;bottom:12px}.start-card{padding:22px}}
+.layout{grid-template-columns:minmax(0,1fr) 306px}.area-table{width:100%;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums;margin-top:12px}.area-table th,.area-table td{padding:7px 3px;border-bottom:1px solid #dddcd3}.area-table th{font-weight:400;text-align:left}.area-table td,.area-table thead th:not(:first-child){text-align:right}.area-table th:first-child{width:49%}.area-table tfoot{color:#315f51}.area-table tfoot th,.area-table tfoot td{font-weight:500;padding-top:10px}.area-section .note{margin-top:10px}.area-key{position:absolute;top:17px;right:19px;font-size:12px;color:#46554a;background:#f7f6f1e8;padding:7px 10px;border-radius:4px;pointer-events:none}.walking .area-key{display:none}.current-area{position:absolute;bottom:62px;left:19px;padding:8px 12px;font-size:13px;color:#315f51;background:#f8f7f0ed;border-radius:5px;pointer-events:none;max-width:calc(100% - 38px)}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.panel .area-section{flex-basis:100%}.area-key{font-size:11px;right:12px;top:17px}.current-area{left:12px;bottom:65px;font-size:12px}.confirmed{gap:16px}.confirmed strong{font-size:17px}}
+/* 装修工作台沿用绿色操作色，将视觉重心交给真实三维场景。 */
+:root{--ui:oklch(20% .017 157);--surface:oklch(23% .019 157);--ink:oklch(96% .008 157);--muted:oklch(78% .018 157);--line:oklch(37% .020 157);--accent:oklch(66% .073 158);--z-ui:10;--z-panel:20;--z-toast:40;--z-modal:60}
+html,body{height:100%;overflow:hidden;background:var(--ui);color:var(--ink)}button,input,select{font-family:inherit}button{color:var(--ink);border-color:var(--line);border-radius:6px;transition:background .18s,color .18s}button:hover{background:oklch(32% .024 157)}button[aria-pressed=true],button[aria-selected=true]{background:oklch(38% .049 157);border-color:var(--accent);color:var(--ink)}button:disabled{opacity:.45;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.studio-shell{height:100dvh;width:100%;display:flex;flex-direction:column}.studio-shell:fullscreen{height:100dvh;background:var(--ui)}.studio-shell .header{height:62px;flex:0 0 62px;padding:0 20px;align-items:center;background:var(--ui);border-bottom:1px solid var(--line);gap:18px}.brand{display:flex;align-items:center;gap:12px;min-width:190px}.brand strong{font-size:17px;font-weight:600;letter-spacing:.03em}.brand span{font-size:12px;color:var(--muted);display:block;margin-top:2px}.header-tools,.view-switch,.day-switch{display:flex;gap:5px;align-items:center}.view-switch{margin-left:auto}.header-tools button,.view-switch button,.day-switch button{font-size:12px;padding:8px 11px}.header-tools{gap:7px}.studio-shell .layout{height:calc(100dvh - 62px);min-height:0;grid-template-columns:minmax(0,1fr) 308px;gap:0;padding:0}.studio-shell .viewer{height:100%;min-height:0;max-height:none;border-radius:0;background:#e6ece8}.studio-shell .panel{display:flex;flex-direction:column;min-height:0;padding:0;background:var(--surface);overflow:auto;border-left:1px solid var(--line)}.inspector-closed .studio-shell .layout{grid-template-columns:minmax(0,1fr)}.inspector-closed .studio-inspector{display:none!important}.studio-shell .north,.studio-shell .area-key{display:none}.studio-shell .game-toolbar{display:flex;top:15px;right:16px;z-index:var(--z-ui)}.game-toolbar button{background:var(--ui);color:var(--ink);font-size:12px;padding:8px 10px}.studio-shell .help{bottom:80px;left:18px;font-size:11px;color:#edf4ee;background:#1c2921e6;padding:7px 10px;border-radius:5px}.studio-shell .current-area{bottom:117px;left:18px;color:#f5f8f5;background:#1c2921e8;font-size:12px}.scene-meta{position:absolute;left:180px;top:19px;z-index:var(--z-ui);color:#31493b;background:#f6f8f3e8;padding:7px 11px;border-radius:5px;font-size:12px}.scene-meta strong{font-weight:500}.scene-meta span{display:block;font-size:11px;color:#52665b;margin-top:4px}.scene-meta[hidden]{display:none}.room-strip{position:absolute;bottom:15px;left:18px;right:18px;display:flex;gap:10px;align-items:center;z-index:var(--z-ui)}.room-nav{display:flex;gap:5px;overflow-x:auto;min-width:0;flex:1;padding-bottom:3px}.room-nav button{white-space:nowrap;padding:8px 12px;background:#1a2a21e8;font-size:12px;border-color:#52685a}.room-nav button[aria-pressed=true]{background:#447660;border-color:#99b6a1}.room-strip>button{white-space:nowrap;background:var(--ui);font-size:12px;padding:8px 12px}.inspector-title{padding:20px 18px 14px;display:flex;justify-content:space-between;align-items:center;font-size:15px}.inspector-title button{border:0;padding:4px 8px;font-size:21px}.inspector-tabs{display:flex;margin:0 14px;border-bottom:1px solid var(--line);gap:2px}.inspector-tabs button{border:0;border-radius:4px 4px 0 0;font-size:12px;flex:1;padding:10px 3px}.inspector-content{padding:18px}.inspector-pane h2{font-weight:500;font-size:14px;margin:0 0 12px}.inspector-pane h3{font-size:12px;font-weight:500;margin:22px 0 10px}.studio-inspector .note{color:var(--muted);font-size:12px;line-height:1.8}.style-option{width:100%;text-align:left;padding:14px 12px;margin-bottom:9px;border:1px solid var(--line);display:block;background:transparent}.style-option strong{display:block;font-size:14px;font-weight:500}.style-option small{display:block;color:var(--muted);font-size:11px;margin-top:6px}.palette{display:flex;gap:4px;margin-top:11px}.palette i{display:block;width:34px;height:12px;border-radius:2px}.inspector-note{padding-top:18px;border-top:1px solid var(--line);margin-top:17px}.field{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;margin:16px 0}.field input[type=color]{width:58px;height:33px;border:1px solid var(--line);padding:3px;background:var(--ui);border-radius:4px}.material-options{display:flex;gap:6px;flex-wrap:wrap}.material-options button{font-size:12px;padding:8px 10px}.studio-inspector select,.studio-inspector input[type=number]{width:100%;background:var(--ui);border:1px solid var(--line);border-radius:5px;color:var(--ink);padding:9px;font-size:12px}.position-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.position-fields label{font-size:11px;color:var(--muted);display:block}.position-fields input{margin-top:6px}.position-fields .wide{grid-column:1/-1}.editor-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.editor-actions button{font-size:11px;padding:8px 10px}.full-button{width:100%;margin:12px 0;font-size:12px}.selected-name{font-size:14px;margin:20px 0 9px;font-weight:500}.studio-inspector .area-table{color:var(--ink);font-size:11px}.studio-inspector .area-table th,.studio-inspector .area-table td{border-color:var(--line);padding:7px 2px}.studio-inspector .area-table tfoot{color:var(--ink)}.studio-inspector hr{border-color:var(--line)}.studio-inspector .status{color:var(--muted)}.import-label{display:block;text-align:center;border:1px solid var(--line);padding:9px 10px;border-radius:5px;font-size:12px;cursor:pointer}.import-label input{display:none}.save-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.save-actions button{font-size:11px}.minimap{position:absolute;left:18px;top:17px;width:141px;background:#1b2c22e8;border-radius:6px;padding:9px;z-index:var(--z-ui)}.minimap p{font-size:10px;margin:0 0 3px;color:#dce9df}.minimap svg{display:block;width:100%;height:160px;overflow:visible}.map-floor{fill:#a1ad9f;stroke:none}.map-wall{fill:#293e31}.map-room{fill:#e8f2e7;stroke:#2d4535;stroke-width:.06;cursor:pointer}.map-room:hover{fill:#78c5a3}.map-camera circle{fill:#6bc89f;stroke:#16382a;stroke-width:.06}.map-cone{fill:#5ecd994f;stroke:none}.studio-shell .walk-overlay{background:transparent;z-index:var(--z-modal);align-items:center;justify-content:center;pointer-events:none}.studio-shell .start-card{pointer-events:auto;background:var(--surface);color:var(--ink);border-radius:9px;box-shadow:0 5px 8px #0005;width:320px}.studio-shell .start-card h2{font-size:20px}.studio-shell .start-card p{color:var(--muted);font-size:12px}.studio-shell .start-card .start-button{background:#487b62;border-color:#619b7d}.secondary-actions button{color:var(--ink)}.compare-ui{position:absolute;inset:0;pointer-events:none;z-index:var(--z-ui)}.compare-divider{position:absolute;height:100%;width:2px;background:#f8fbf5;left:50%}.compare-legend{position:absolute;left:50%;top:18px;transform:translateX(-50%);display:flex;gap:70px;color:#fff;font-size:12px}.compare-legend span{background:#20332ae6;padding:8px 14px;border-radius:4px}.compare-range{position:absolute;bottom:164px;left:50%;transform:translateX(-50%);width:220px;pointer-events:auto;accent-color:#6ca284}.toast{position:absolute;left:50%;bottom:85px;transform:translateX(-50%);max-width:calc(100% - 32px);padding:10px 15px;border-radius:5px;background:#1e3026f0;color:var(--ink);font-size:12px;z-index:var(--z-toast);pointer-events:none}.loading{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);background:#24382fe8;color:var(--ink);padding:17px 24px;z-index:var(--z-ui);border-radius:6px;font-size:13px}.loading small{display:block;margin-top:8px;font-size:11px;color:var(--muted)}.touch-pad{display:none}.editor-guide{position:absolute;bottom:122px;right:17px;padding:8px 12px;background:#203329e8;color:#edf4ee;font-size:11px;border-radius:4px;pointer-events:none}
+@media(max-width:1100px){.brand{min-width:145px}.brand span{font-size:10px}.header-tools{gap:4px}.header-tools button,.view-switch button,.day-switch button{padding:8px;font-size:11px}.studio-shell .header{padding:0 12px;gap:10px}.studio-shell .layout{grid-template-columns:minmax(0,1fr) 284px}.inspector-closed .studio-shell .layout{grid-template-columns:1fr}}
+@media(max-width:760px){.studio-shell .header{height:100px;flex:0 0 100px;flex-wrap:wrap;padding:10px 12px;gap:7px}.brand{min-width:0;flex:1}.brand strong{font-size:15px}.view-switch{order:3;margin:0;flex:1}.day-switch{order:4}.header-tools button{padding:6px 8px}.header-tools #screenshot{display:none}.studio-shell .layout{height:calc(100dvh - 100px);grid-template-columns:1fr}.studio-shell .studio-inspector{position:absolute;right:0;top:100px;bottom:0;width:min(320px,92vw);z-index:var(--z-panel);border-left:1px solid var(--line)}.inspector-closed .studio-inspector{display:none!important}.minimap{width:110px;left:12px;top:12px;padding:6px}.minimap svg{height:132px}.scene-meta{left:132px;top:15px;font-size:11px;max-width:calc(100% - 235px)}.scene-meta span{font-size:10px}.studio-shell .game-toolbar{right:9px;top:13px}.game-toolbar button{font-size:10px;padding:7px 8px}.studio-shell .game-toolbar #pause-walk{display:none}.room-strip{bottom:11px;left:10px;right:10px;gap:5px}.room-nav button{padding:12px 10px;font-size:11px}.room-strip>button{font-size:10px;padding:12px 9px}.studio-shell .help{bottom:69px;left:10px;font-size:10px;max-width:calc(100% - 20px)}.studio-shell .current-area{left:10px;bottom:105px;font-size:11px;max-width:calc(100% - 20px)}.touch-pad{display:grid;position:absolute;right:15px;bottom:150px;grid-template-columns:36px 36px 36px;grid-template-rows:36px 36px;gap:4px;z-index:var(--z-ui)}.touch-pad button{padding:0;background:#243b2de8;border-color:#809786;font-size:15px}.touch-pad button:first-child{grid-column:2}.touch-pad button:nth-child(2){grid-column:1;grid-row:2}.touch-pad button:nth-child(3){grid-column:2;grid-row:2}.touch-pad button:nth-child(4){grid-column:3;grid-row:2}.toast{bottom:115px}.compare-range{bottom:240px}.compare-legend{gap:42px;top:168px}.editor-guide{bottom:200px;max-width:180px}.studio-shell .start-card{width:min(310px,90vw)}.header-tools #raw-toggle{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+.studio-shell .header{display:flex}.studio-shell .panel{flex-wrap:nowrap;align-items:stretch;gap:0}.compare-ui .compare-range{width:220px}
+@media(max-width:760px){.studio-shell .header{height:110px;flex-basis:110px;padding:6px 12px}.studio-shell .layout{height:calc(100dvh - 110px)}.studio-shell .studio-inspector{top:110px}.header-tools button,.view-switch button,.day-switch button{min-height:44px}.touch-pad{grid-template-columns:44px 44px 44px;grid-template-rows:44px 44px}}
+@media(max-width:760px){.studio-shell .header{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:44px 44px;gap:4px 10px}.brand{grid-column:1;grid-row:1;min-width:0}.brand strong{white-space:nowrap}.header-tools{grid-column:2;grid-row:1;flex-shrink:0}.view-switch{grid-column:1;grid-row:2;margin:0;flex-shrink:0}.day-switch{grid-column:2;grid-row:2;justify-content:flex-end}.header-tools button,.view-switch button,.day-switch button{white-space:nowrap;flex-shrink:0}}
+</style>
+</head>
+<body>
+<div class="studio-shell" id="studio-shell">
+<header class="header">
+  <div class="brand"><div><strong>我的家</strong><span>98㎡ · 三室两厅两卫 · 装修工作台</span></div></div>
+  <div class="view-switch" aria-label="查看方式"><button data-view="walk" aria-pressed="true">室内</button><button data-view="overview" aria-pressed="false">全屋模型</button><button data-view="top" aria-pressed="false">平面</button><button id="panorama-open">全景看房</button></div>
+  <div class="day-switch" aria-label="光线"><button data-time="day" aria-pressed="true">日景</button><button data-time="night" aria-pressed="false">夜景</button></div>
+  <div class="header-tools"><button id="raw-toggle" aria-pressed="false">毛坯</button><button id="compare-toggle" aria-pressed="false">前后对比</button><button id="screenshot">截图</button><button id="toggle-inspector" aria-expanded="true">装修面板</button></div>
+</header>
+<main class="layout">
+  <div class="viewer" id="view"><canvas id="scene" tabindex="0" aria-label="装修房第一人称漫游，可用 WASD 或方向键行走，拖动画面转头"></canvas>
+    <div class="north">图二方向<span>↑ 北</span></div>
+    <div class="area-key">房间标注不含墙体 · 总面积98㎡含墙体/赠送</div>
+    <div class="minimap"><p>户型定位 · 点击切换房间</p><svg id="minimap-svg" role="img" aria-label="户型小地图与当前朝向"></svg></div>
+    <div class="scene-meta"><strong id="scheme-name">暖木现代</strong><span id="scheme-detail">浅橡木 · 亚麻 · 鼠尾草绿</span></div>
+    <div class="game-toolbar"><button id="pause-walk">暂停 / 菜单</button><button id="fullscreen">全屏</button></div>
+    <div class="crosshair" id="crosshair" hidden aria-hidden="true"></div>
+    <p class="help" id="help">WASD 行走 · 鼠标转头 · Esc 暂停</p>
+    <div class="current-area" id="current-area" aria-live="polite"></div>
+    <div class="room-strip"><div class="room-nav" id="room-nav" aria-label="房间导航"></div><button id="tour-toggle" aria-pressed="false">自动导览</button></div>
+    <div class="touch-pad" aria-label="触屏行走"><button data-move="forward" aria-label="向前">↑</button><button data-move="left" aria-label="向左">←</button><button data-move="back" aria-label="向后">↓</button><button data-move="right" aria-label="向右">→</button></div>
+    <div class="compare-ui" id="compare-ui" hidden><div class="compare-divider" id="compare-divider"></div><div class="compare-legend"><span>毛坯</span><span>装修后</span></div><input class="compare-range" id="compare-split" type="range" min="5" max="95" value="50" aria-label="毛坯与装修分界位置"></div>
+    <div class="editor-guide" id="edit-help" hidden>点击家具选择 · 拖动箭头移动 · 旋转可吸附15°</div>
+    <div class="toast" id="toast" hidden aria-live="polite"></div>
+    <div class="loading" id="loading">正在准备装修场景<small>铺设材质、加载家具与灯光</small></div>
+    <div class="walk-overlay" id="walk-overlay"><div class="start-card">
+      <h2>漫游已暂停</h2><p id="walk-hint">鼠标拖动看周围，WASD行走；继续漫游可锁定鼠标，Esc释放。</p>
+      <button class="start-button" id="enter-walk">进入 / 继续漫游</button>
+      <div class="secondary-actions"><button id="reset-walk">回到玄关</button><button id="overview-from-pause">查看面积总览</button></div>
+    </div></div>
+  </div>
+  <aside class="panel studio-inspector" aria-label="装修面板">
+    <div class="inspector-title">装修面板<button id="close-inspector" aria-label="收起装修面板">×</button></div>
+    <div class="inspector-tabs" role="tablist" aria-label="装修设置"><button data-pane="style" role="tab" aria-selected="true">方案</button><button data-pane="materials" role="tab" aria-selected="false">材质</button><button data-pane="layout" role="tab" aria-selected="false">布置</button><button data-pane="areas" role="tab" aria-selected="false">户型</button></div>
+    <div class="inspector-content">
+    <section class="inspector-pane" id="pane-style"><h2>选择一套装修方案</h2>
+      <button class="style-option" data-theme="warm" aria-pressed="true"><strong>暖木现代</strong><small>浅橡木、亚麻与鼠尾草绿</small><span class="palette"><i style="background:#d0b38f"></i><i style="background:#e7e1d5"></i><i style="background:#738779"></i><i style="background:#b49a6e"></i></span></button>
+      <button class="style-option" data-theme="minimal" aria-pressed="false"><strong>清爽极简</strong><small>浅色石材、柔白与石墨灰</small><span class="palette"><i style="background:#e4e7e0"></i><i style="background:#cdd4d0"></i><i style="background:#71848c"></i><i style="background:#555f62"></i></span></button>
+      <button class="style-option" data-theme="urban" aria-pressed="false"><strong>都市深色</strong><small>深木色、暖灰与焦糖皮革</small><span class="palette"><i style="background:#856346"></i><i style="background:#a67556"></i><i style="background:#4d5854"></i><i style="background:#ada080"></i></span></button>
+      <p class="note inspector-note">每套方案都会改变墙面、地面、柜体、织物和金属饰面。也可以在“材质”中继续搭配。</p>
+      <h3>留住这套方案</h3><div class="save-actions"><button id="save-layout">保存在本机</button><button id="export-config">导出方案文件</button></div>
+      <label class="import-label" style="margin-top:8px">导入方案文件<input id="import-config" type="file" accept=".json,application/json"></label>
+      <button class="full-button" id="export-model">导出装修模型</button>
+    </section>
+    <section class="inspector-pane" id="pane-materials" hidden><h2>材质搭配</h2>
+      <label class="field">全屋墙面<input id="wall-color" type="color" value="#f1ece3"></label>
+      <label class="field">沙发与软包<input id="sofa-color" type="color" value="#dcd4c4"></label>
+      <h3>客厅与卧室地面</h3><div class="material-options"><button data-floor="wood" aria-pressed="true">浅木地板</button><button data-floor="stone" aria-pressed="false">浅色石材</button><button data-floor="dark-wood" aria-pressed="false">深木地板</button></div>
+      <p class="note inspector-note">厨房、卫生间和阳台保留石材地面。颜色调整直接显示在三维场景中。</p>
+    </section>
+    <section class="inspector-pane" id="pane-layout" hidden><h2>家具布置</h2><p class="note">可点击场景中的家具，或从下方列表选择。调整时切换到全屋模型。</p>
+      <button class="full-button" id="edit-toggle" aria-pressed="false">开启家具调整</button>
+      <label class="field" for="furniture-select">选择家具</label><select id="furniture-select"><option value="">请选择</option></select>
+      <div class="selected-name" id="selected-name">选择一件家具</div><div id="item-controls" hidden>
+        <div class="button-row"><button id="move-mode">移动</button><button id="rotate-mode">旋转</button></div>
+        <p class="note" id="item-size"></p><div class="position-fields"><label>横向位置（米）<input id="item-x" type="number" step=".05"></label><label>纵向位置（米）<input id="item-z" type="number" step=".05"></label><label class="wide">旋转角度<input id="item-angle" type="number" step="15"></label></div>
+        <button class="full-button" id="item-visibility">隐藏这件家具</button>
+      </div><div class="editor-actions"><button id="undo-layout" disabled>撤销布置</button><button id="reset-layout">恢复初始布置</button></div>
+      <p class="note inspector-note">家具尺寸与布置为装修示意。调整会检查墙体和其他家具，保存方案后可以恢复。</p>
+    </section>
+    <section class="inspector-pane" id="pane-areas" hidden>
+    <h2>户型与面积依据</h2><label class="check" id="labels-check"><input id="labels" type="checkbox">显示面积与尺寸标注</label>
+    <section class="area-section"><h2>各空间面积</h2><p class="note" id="area-caption"></p>
+      <table class="area-table" aria-label="空间地面面积加墙体面积合计98平方米">
+        <thead><tr><th scope="col">空间</th><th scope="col">地面㎡（不含墙）</th></tr></thead>
+        <tbody id="area-rows"></tbody><tfoot>
+          <tr><th scope="row">空间地面合计</th><td id="net-total"></td></tr>
+          <tr><th scope="row">墙体投影（示意估算）</th><td id="wall-total"></td></tr>
+          <tr><th scope="row">总面积（含墙体）</th><td id="gross-total">98.00</td></tr>
+        </tfoot>
+      </table><p class="note">墙体项含全厚外墙及门洞上方墙体投影，不等于实际墙体占地或产权测绘面积。赠送空间纳入对应区域；开放空间分界仍为估算。</p>
+    </section>
+    <hr>
+    <section id="height-section"><h2>墙体显示</h2><div class="label-row"><label for="height">显示高度</label><output id="height-value" for="height">1.20 米</output></div>
+      <input id="height" type="range" min="0.20" max="2.90" step="0.05" value="1.20">
+      <div class="button-row"><button id="cutaway">剖切查看</button><button id="full" aria-pressed="false">完整墙高</button></div>
+      <p class="note" style="margin-top:12px">剖切只改变预览。模型文件保留完整 2.90 米墙高。</p></section>
+    <section class="assumptions"><h2>尺寸依据</h2><p class="note">左右方向的两处净宽按实测值锁定，其余尺寸按图二比例推算。</p>
+      <p class="note" style="margin-top:10px">暂定外墙 200 mm、内墙 120 mm。门窗高度与南侧设备平台边界为估算值。</p>
+      <p class="note" style="margin-top:10px">当前写实样板：客厅、暖木现代日景。其他空间沿用已确认布局。玄关旁为小房间，现作书房示意；家具可在“布置”中调整。</p>
+      <div class="status" id="status" aria-live="polite">正在加载模型…</div></section>
+    </section></div>
+  </aside>
+</main>
+</div>
+<script>/*BUNDLED_SCRIPT*/</script>
+</body>
+</html>

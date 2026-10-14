@@ -1,0 +1,36 @@
+# 我的家 · 98㎡三套风格全景
+
+这是可以直接托管的静态网站。暖木现代、清爽极简、都市深色各有11个固定点位，共33张4K全景，另有装修布局工作台。
+
+## 给OpenClaw的部署步骤
+
+1. 拉取本仓库的`main`分支。
+2. 将`outputs/website/`的**全部内容**发布到服务器的静态网站目录，保留`panoramas/`及内部目录结构。
+3. 将默认首页设为`index.html`，访问站点根地址即可。也可以放在子目录，例如`https://你的域名/house/`。
+4. 检查三套风格切换、房间跳转和“装修布局”往返。
+
+部署已经生成的文件不需要安装Node.js、Python、Blender或数据库，不需要重新渲染，也不需要运行构建命令。网页及资源全部从当前站点加载。
+
+## 目录
+
+| 目录 | 用途 |
+|---|---|
+| `outputs/website/` | 可直接部署的网站，默认入口`index.html` |
+| `work/` | 查看器、户型模型、打包和渲染源码 |
+| `work/interior-assets/` | 编辑工作台使用的材质和模型数据 |
+| `work/realism-assets/*.json` | 原工作台的光照和家具数据 |
+
+网站资源许可见[素材来源与许可](outputs/website/素材来源与许可.md)。Blender源场景、个人参考产品模型、安装包、渲染缓存及旧交付ZIP保留在本机或已清理，不作为部署依赖。
+
+## 修改源码后重新构建
+
+如需修改查看器代码，在仓库根目录运行：
+
+```sh
+npm ci --prefix work
+npm run build:web --prefix work
+```
+
+全景构建会使用已提交的`outputs/website/panoramas/`图片，无需重新生成Blender缓存。输出仍在`outputs/website/`。重新打ZIP可运行`python work/package-panorama-delivery.py --web`，这只是交付包工具，网站运行不依赖Python。
+
+全景为固定的日景装修方案。原布局工作台的家具编辑不会即时改变全景；修改装修场景后需要另外重新渲染图片。室外背景和非实测尺寸为示意。

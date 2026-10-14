@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "build:web": "node package-viewer.mjs && node package-panorama.mjs --web"
+  },
+  "dependencies": {
+    "esbuild": "^0.28.2",
+    "three": "^0.186.1"
+  }
+}
